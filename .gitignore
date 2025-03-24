@@ -1,6 +1,7 @@
 # VENV, DB and other files
 .venv
 venv/
+.env
 website/db.sqlite3
 
 # IDE
