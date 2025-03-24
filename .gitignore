@@ -1,5 +1,13 @@
+# VENV, DB and other files
 .venv
+venv/
+website/db.sqlite3
+
+# IDE
 .vscode
 .idea
-db.sqlite3
-shiprenter/__pycache__
+
+# Byte-compiled / optimized / DLL files
+website/__pycache__/
+website/app/__pycache__/
+website/website/__pycache__/
