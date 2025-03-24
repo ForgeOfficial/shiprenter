@@ -1,0 +1,13 @@
+[phases.setup]
+nixPkgs = ["...","python3"]
+
+[phases.build]
+cmds = [
+  "python manage.py collectstatic --noinput",
+  "python manage.py migrate"
+]
+
+[start]
+cmd = "gunicorn -t 200 --keep-alive 200 website.wsgi:application -b 0.0.0.0:$PORT"
+healthcheckPath = "/"
+healthcheckTimeout = 60
