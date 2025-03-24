@@ -53,9 +53,6 @@ The ```railway.json``` configuration ensures full automation of the process
 # Launch the website:
 ## Development:
 ```bash
-cd website
-```
-```bash
 sudo gunicorn --bind 127.0.0.1:8000 -t 200 --keep-alive 200 website.wsgi
 ```
 
