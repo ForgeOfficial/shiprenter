@@ -9,5 +9,5 @@ website/db.sqlite3
 
 # Byte-compiled / optimized / DLL files
 website/__pycache__/
-website/app/__pycache__/
-website/website/__pycache__/
+app/__pycache__/
+website/__pycache__/
