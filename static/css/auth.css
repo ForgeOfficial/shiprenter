@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary: #00b4ff;
+    --primary-dark: #0084ff;
+    --dark-bg: #080a10;
+    --card-bg: #10141f;
+    --border-color: rgba(255, 255, 255, 0.08);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--dark-bg);
+    min-height: 100vh;
+    color: #f5f5f7;
+}
+
+.main-gradient {
+    background: radial-gradient(circle at 50% 50%, #14182b, #080a10);
+}
+
+.glow {
+    box-shadow: 0 0 30px rgba(0, 180, 255, 0.2);
+}
+
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    backdrop-filter: blur(10px);
+}
+
+input, select {
+    background-color: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid var(--border-color) !important;
+    transition: all 0.2s ease;
+}
+
+input:focus, select:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 1px rgba(0, 180, 255, 0.2) !important;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.tab-underline {
+    height: 2px;
+    width: 50%;
+    background-color: var(--primary);
+    position: absolute;
+    bottom: 0;
+    transition: transform 0.3s ease;
+}
+
+.tab-underline.register {
+    transform: translateX(100%);
+}
+
+.glass-effect {
+    background: rgba(16, 20, 31, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.form-transition {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.form-hidden {
+    opacity: 0;
+    transform: translateX(10px);
+    pointer-events: none;
+    position: absolute;
+}
+
+.form-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.blue-glow {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: var(--primary);
+    filter: blur(80px);
+    opacity: 0.15;
+    z-index: -1;
+}

@@ -1,0 +1,183 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/auth.css' %}">
+    <title>ShipRenter - Authentification</title>
+    {% include '_head.html' %}
+</head>
+<body class="main-gradient flex items-center justify-center p-5">
+<div class="blue-glow top-0 right-[20%]"></div>
+<div class="blue-glow bottom-0 left-[30%]"></div>
+
+<div class="w-full max-w-md relative z-10">
+    <div class="card rounded-2xl overflow-hidden p-1">
+        <div class="glass-effect rounded-xl p-8 relative">
+            <div class="flex justify-center mb-8">
+                <div class="text-center">
+                    <h1 class="text-2xl font-bold tracking-tight mb-1">ShipRenter</h1>
+                    <div class="text-xs text-gray-400 uppercase tracking-widest">Portail d'authentification</div>
+                </div>
+            </div>
+
+            <div class="relative mb-8">
+                <div class="flex text-center border-b border-gray-800 relative">
+                    <button id="login-tab" class="w-1/2 py-3 font-medium transition-colors">Se connecter</button>
+                    <button id="register-tab" class="w-1/2 py-3 font-medium transition-colors">S'inscrire</button>
+                    <div id="tab-indicator" class="tab-underline"></div>
+                </div>
+            </div>
+
+            <div id="login-form" class="form-transition form-visible">
+                {% if error %}
+                    <p class="text-red-500">{{ error }}</p>
+                {% endif %}
+                {% if success %}
+                	<p class="text-green-500">{{ success }}</p>
+                {% endif %}
+                <form action="{% url 'login' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="space-y-5">
+                        <div>
+                            <label for="{{ login_form.username.id_for_label }}"
+                                   class="block text-xs font-medium text-gray-400 mb-2 uppercase tracking-wide">
+                                Identifiant
+                            </label>
+                            <div class="relative">
+                                {{ login_form.username }}
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <label for="{{ login_form.password.id_for_label }}"
+                                       class="block text-xs font-medium text-gray-400 uppercase tracking-wide">
+                                    Mot de passe
+                                </label>
+                            </div>
+                            <div class="relative">
+                                {{ login_form.password }}
+                            </div>
+                        </div>
+
+                        <button type="submit"
+                                class="btn-primary w-full py-3 rounded-lg font-medium text-white hover:shadow-lg">
+                            Connexion
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="register-form" class="form-transition form-hidden">
+                {% if error %}
+                    <p class="text-red-500">{{ error }}</p>
+                {% endif %}
+                <form action="{% url 'register' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="space-y-5">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="{{ register_form.username.id_for_label }}"
+                                       class="block text-xs font-medium text-gray-400 mb-2 uppercase tracking-wide">Username</label>
+                                {{ register_form.username }}
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="{{ register_form.email.id_for_label }}"
+                                   class="block text-xs font-medium text-gray-400 mb-2 uppercase tracking-wide">Email</label>
+                            {{ register_form.email }}
+                        </div>
+
+                        <div>
+                            <label for="{{ register_form.password.id_for_label }}"
+                                   class="block text-xs font-medium text-gray-400 mb-2 uppercase tracking-wide">Mot de
+                                passe</label>
+                            {{ register_form.password }}
+                        </div>
+
+                        <div>
+                            <label for="{{ register_form.password2.id_for_label }}"
+                                   class="block text-xs font-medium text-gray-400 mb-2 uppercase tracking-wide">Confirm
+                                password</label>
+                            {{ register_form.password2 }}
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="flex items-center h-5">
+                                <input
+                                        id="terms"
+                                        type="checkbox"
+                                        class="w-4 h-4 rounded bg-gray-900 border-gray-700 text-blue-500 focus:ring-blue-600 focus:ring-opacity-25"
+                                        required
+                                >
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="terms" class="text-gray-300">J'accepte les <a href="#"
+                                                                                          class="text-blue-400 hover:text-blue-300">conditions</a>
+                                    et la <a href="#" class="text-blue-400 hover:text-blue-300">politique
+                                        UEE</a></label>
+                            </div>
+                        </div>
+
+                        <button
+                                type="submit"
+                                class="btn-primary w-full py-3 rounded-lg font-medium text-white hover:shadow-lg"
+                        >
+                            Créer un compte
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Footer info -->
+            <div class="mt-6 text-center text-xs text-gray-500">
+                <p>© 2025 Roberts Space Industries Corp. Tous droits réservés.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // DOM Elements
+    const loginTab = document.getElementById('login-tab');
+    const registerTab = document.getElementById('register-tab');
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    const tabIndicator = document.getElementById('tab-indicator');
+
+    // Functions
+    function switchToLogin() {
+        loginTab.classList.add('text-white');
+        registerTab.classList.remove('text-white');
+        registerTab.classList.add('text-gray-500');
+        loginForm.classList.remove('form-hidden');
+        loginForm.classList.add('form-visible');
+        registerForm.classList.add('form-hidden');
+        registerForm.classList.remove('form-visible');
+        tabIndicator.classList.remove('register');
+    }
+
+    function switchToRegister() {
+        registerTab.classList.add('text-white');
+        loginTab.classList.remove('text-white');
+        loginTab.classList.add('text-gray-500');
+        registerForm.classList.remove('form-hidden');
+        registerForm.classList.add('form-visible');
+        loginForm.classList.add('form-hidden');
+        loginForm.classList.remove('form-visible');
+        tabIndicator.classList.add('register');
+    }
+
+    loginTab.addEventListener('click', switchToLogin);
+    registerTab.addEventListener('click', switchToRegister);
+
+    {% if active == 'register' %}
+        switchToRegister();
+    {% else %}
+        switchToLogin();
+    {% endif %}
+</script>
+</body>
+</html>
