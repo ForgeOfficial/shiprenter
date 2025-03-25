@@ -8,7 +8,4 @@ website/db.sqlite3
 .vscode
 .idea
 
-# Byte-compiled / optimized / DLL files
-website/__pycache__/
-app/__pycache__/
-website/__pycache__/
+**/__pycache__/
