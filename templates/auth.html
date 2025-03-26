@@ -37,6 +37,7 @@
                 	<p class="text-green-500">{{ success }}</p>
                 {% endif %}
                 <form action="{% url 'login' %}" method="POST">
+                    {% csrf_token %}
                     <div class="space-y-5">
                         <div>
                             <label for="{{ login_form.username.id_for_label }}"
@@ -73,6 +74,7 @@
                     <p class="text-red-500">{{ error }}</p>
                 {% endif %}
                 <form action="{% url 'register' %}" method="POST">
+                    {% csrf_token %}
                     <div class="space-y-5">
                         <div class="grid grid-cols-2 gap-4">
                             <div>

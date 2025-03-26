@@ -15,6 +15,7 @@ DEBUG = env.bool('DEBUG')
 ALLOWED_HOSTS = ['127.0.0.1','lacalhost', 'shiprenter-production.up.railway.app']
 
 AUTH_USER_MODEL = 'users.CustomUser'
+CSRF_COOKIE_SECURE = True
 
 # Application definition
 
