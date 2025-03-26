@@ -78,7 +78,7 @@
                             <p class="text-red-500">{{ error }}</p>
                         {% endif %}
                         <form action="{% url 'register' %}" method="POST">
-                            {% csrf_token %} <div class="space-y-5">
+                            <div class="space-y-5">
                                 <div class="grid grid-cols-2 gap-4">
                                     <div>
                                         <label for="{{ register_form.username.id_for_label }}"
