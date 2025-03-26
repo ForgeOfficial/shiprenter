@@ -1,10 +1,10 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <link type="text/css" rel="stylesheet" href="{% static 'css/auth.css' %}">
-    <title>ShipRenter - Authentification</title>
+    <title>ShipRenter - Authentication</title>
     {% include '_head.html' %}
 </head>
 <body class="main-gradient flex items-center justify-center p-5">
@@ -17,14 +17,14 @@
             <div class="flex justify-center mb-8">
                 <div class="text-center">
                     <h1 class="text-2xl font-bold tracking-tight mb-1">ShipRenter</h1>
-                    <div class="text-xs text-gray-400 uppercase tracking-widest">Portail d'authentification</div>
+                    <div class="text-xs text-gray-400 uppercase tracking-widest">Authentication portal</div>
                 </div>
             </div>
 
             <div class="relative mb-8">
                 <div class="flex text-center border-b border-gray-800 relative">
-                    <button id="login-tab" class="w-1/2 py-3 font-medium transition-colors">Se connecter</button>
-                    <button id="register-tab" class="w-1/2 py-3 font-medium transition-colors">S'inscrire</button>
+                    <button id="login-tab" class="w-1/2 py-3 font-medium transition-colors">Login</button>
+                    <button id="register-tab" class="w-1/2 py-3 font-medium transition-colors">Register</button>
                     <div id="tab-indicator" class="tab-underline"></div>
                 </div>
             </div>
@@ -42,7 +42,7 @@
                         <div>
                             <label for="{{ login_form.username.id_for_label }}"
                                    class="block text-xs font-medium text-gray-400 mb-2 uppercase tracking-wide">
-                                Identifiant
+                                Username
                             </label>
                             <div class="relative">
                                 {{ login_form.username }}
@@ -53,7 +53,7 @@
                             <div class="flex items-center justify-between mb-2">
                                 <label for="{{ login_form.password.id_for_label }}"
                                        class="block text-xs font-medium text-gray-400 uppercase tracking-wide">
-                                    Mot de passe
+                                    Password
                                 </label>
                             </div>
                             <div class="relative">
@@ -63,7 +63,7 @@
 
                         <button type="submit"
                                 class="btn-primary w-full py-3 rounded-lg font-medium text-white hover:shadow-lg">
-                            Connexion
+                            Login
                         </button>
                     </div>
                 </form>
@@ -92,8 +92,7 @@
 
                         <div>
                             <label for="{{ register_form.password.id_for_label }}"
-                                   class="block text-xs font-medium text-gray-400 mb-2 uppercase tracking-wide">Mot de
-                                passe</label>
+                                   class="block text-xs font-medium text-gray-400 mb-2 uppercase tracking-wide">Password</label>
                             {{ register_form.password }}
                         </div>
 
@@ -114,10 +113,9 @@
                                 >
                             </div>
                             <div class="ml-3 text-sm">
-                                <label for="terms" class="text-gray-300">J'accepte les <a href="#"
-                                                                                          class="text-blue-400 hover:text-blue-300">conditions</a>
-                                    et la <a href="#" class="text-blue-400 hover:text-blue-300">politique
-                                        UEE</a></label>
+                                <label for="terms" class="text-gray-300">I accept the <a href="#"
+                                                                                          class="text-blue-400 hover:text-blue-300">TOS</a>
+                                    and the <a href="#" class="text-blue-400 hover:text-blue-300">Policy privacy</a></label>
                             </div>
                         </div>
 
@@ -125,15 +123,14 @@
                                 type="submit"
                                 class="btn-primary w-full py-3 rounded-lg font-medium text-white hover:shadow-lg"
                         >
-                            Créer un compte
+                            Register
                         </button>
                     </div>
                 </form>
             </div>
 
-            <!-- Footer info -->
             <div class="mt-6 text-center text-xs text-gray-500">
-                <p>© 2025 Roberts Space Industries Corp. Tous droits réservés.</p>
+                <p>© 2025 ShipRenter. All rights reserved.</p>
             </div>
         </div>
     </div>
