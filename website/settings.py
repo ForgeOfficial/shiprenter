@@ -49,6 +49,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
+CSRF_TRUSTED_ORIGINS = [
+    'https://shiprenter-production.up.railway.app',
+]
 
 ROOT_URLCONF = 'website.urls'
 
