@@ -1,16 +1,18 @@
 <div class="container mx-auto flex justify-between items-center">
-    <div class="flex items-center space-x-2">
-        <i class="fas fa-rocket text-blue-400 text-2xl"></i>
-        <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">ShipRenter</h1>
-    </div>
+    <a href="/">
+        <div class="flex items-center space-x-2">
+            <i class="fas fa-rocket text-blue-400 text-2xl"></i>
+            <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">ShipRenter</h1>
+        </div>
+    </a>
     <div class="hidden md:flex space-x-6">
-        <a href="#" class="hover:text-blue-400 transition-colors">Home</a>
-        <a href="#" class="hover:text-blue-400 transition-colors">About</a>
-        <a href="#" class="hover:text-blue-400 transition-colors">Contact</a>
+        <a href="/" class="hover:text-blue-400 transition-colors">Home</a>
+        <a href="{% url 'about' %}" class="hover:text-blue-400 transition-colors">About</a>
+        <a href="{% url 'contact' %}" class="hover:text-blue-400 transition-colors">Contact</a>
     </div>
     <div class="flex items-center space-x-4">
-        <a href="login" class="hover:text-blue-400 transition-colors"><i class="fas fa-user"></i></a>
-        <a href="#" class="hover:text-blue-400 transition-colors"><i class="fas fa-shopping-cart"></i></a>
+        <a href="{% url 'login' %}" class="hover:text-blue-400 transition-colors"><i class="fas fa-user"></i></a>
+        <a href="{% url 'cart' %}" class="hover:text-blue-400 transition-colors"><i class="fas fa-shopping-cart"></i></a>
         <button class="md:hidden"><i class="fas fa-bars"></i></button>
     </div>
 </div>
