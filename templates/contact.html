@@ -1,0 +1,90 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>ShipRenter - Contact Us</title>
+
+        {% include '_head.html' %}
+
+        <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    </head>
+
+    <body class="bg-slate-50 flex flex-col min-h-screen">
+        <header class="bg-slate-900 text-white py-4 px-6 md:px-10 shadow-lg">
+            {% include '_header.html' %}
+        </header>
+
+        <main class="container mx-auto px-4 py-10 flex-grow">
+            <div class="bg-white rounded-lg shadow-md p-6 md:p-8 lg:p-10 max-w-4xl mx-auto">
+
+                <h1 class="text-3xl md:text-4xl font-bold text-slate-800 mb-6 border-b pb-4">
+                    Get In Touch
+                </h1>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 md:gap-10">
+
+                    <div class="mb-8 md:mb-0">
+                        <h2 class="text-xl font-semibold text-slate-700 mb-3">Contact Information</h2>
+                        <p class="text-slate-600 mb-4 leading-relaxed">
+                            Have questions about our fleet or need assistance with a booking? Reach out to us! We aim to respond to all inquiries within one standard galactic business day.
+                        </p>
+                        <div class="space-y-3 text-slate-600">
+                            <p class="flex items-center">
+                                <i class="fas fa-envelope mr-3 text-slate-500 w-4 text-center"></i>
+                                <a href="mailto:support@shiprenter.com" class="hover:text-blue-600">support@shiprenter.com</a>
+                            </p>
+                            <p class="flex items-center">
+                                <i class="fas fa-phone mr-3 text-slate-500 w-4 text-center"></i>
+                                <span>+123-456-789</span>
+                            </p>
+                            <p class="flex items-start">
+                                <i class="fas fa-map-marker-alt mr-3 text-slate-500 w-4 text-center pt-1"></i>
+                                <span>Tower 3, Cloudview Center, Stanton</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h2 class="text-xl font-semibold text-slate-700 mb-3">Send Us a Message</h2>
+                        <form action="" method="post" class="space-y-4">
+                            {% csrf_token %}
+
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-slate-700 mb-1">Full Name</label>
+                                <input type="text" name="name" id="name" required class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors" placeholder="Your Name">
+                            </div>
+
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
+                                <input type="email" name="email" id="email" required class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors" placeholder="you@example.com">
+                            </div>
+
+                            <div>
+                                <label for="subject" class="block text-sm font-medium text-slate-700 mb-1">Subject</label>
+                                <input type="text" name="subject" id="subject" required class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors" placeholder="Reason for contacting us">
+                            </div>
+
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-slate-700 mb-1">Message</label>
+                                <textarea name="message" id="message" rows="5" required class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors resize-none" placeholder="Your message..."></textarea>
+                            </div>
+
+                            <div class="pt-2">
+                                <button type="submit" class="w-full sm:w-auto inline-flex justify-center items-center px-6 py-2 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                                    <i class="fas fa-paper-plane mr-2"></i> Send Message
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </main>
+
+        <footer class="bg-slate-900 text-white py-6 mt-auto">
+            {% include '_footer.html' %}
+        </footer>
+    </body>
+</html>

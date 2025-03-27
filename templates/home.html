@@ -4,142 +4,176 @@
 <html lang="en">
     <head>
         <title>ShipRenter - Home</title>
-
         {% include '_head.html' %}
-        
         <link rel="stylesheet" href="{% static 'css/home.css' %}">
-        <script src="{% static 'js/home.js' %}" fetchpriority="low" defer></script>
     </head>
-
-    <body class="bg-slate-50">
+    <body class="bg-slate-50 flex flex-col min-h-screen">
         <header class="bg-slate-900 text-white py-4 px-6 md:px-10 shadow-lg">
             {% include '_header.html' %}
         </header>
 
-        <div class="container mx-auto px-4 py-8">
+        <main class="container mx-auto px-4 py-8 flex-grow">
             <div class="mb-10">
                 <h2 class="text-3xl font-bold text-slate-800 mb-2">Find your ideal spaceship</h2>
                 <p class="text-slate-600 mb-6">Explore our fleet of high-quality spaceships available for rent</p>
                 
-                <div class="bg-white rounded-lg shadow-md p-4 md:p-6">
+                <form method="GET" action="{% url 'app' %}" class="bg-white rounded-lg shadow-md p-4 md:p-6">
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        
                         <div class="relative">
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Model</label>
+                            <label for="model-search" class="block text-sm font-medium text-slate-700 mb-1">Model</label>
                             <div class="relative">
-                                <input type="text" id="model-search" placeholder="Search for a model" class="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <i class="fas fa-space-shuttle text-slate-400"></i>
-                                </div>
+                                <input type="text" id="model-search" name="model" value="{{ current_filters.model }}" placeholder="Search for a model" class="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"> <i class="fas fa-space-shuttle text-slate-400"></i> </div>
                             </div>
                         </div>
                         
                         <div class="relative">
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Size</label>
+                            <label for="size-filter" class="block text-sm font-medium text-slate-700 mb-1">Size</label>
                             <div class="relative">
-                                <select id="size-filter" class="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all appearance-none">
-                                    <option value="">All sizes</option>
-                                    <option value="Petit">Small</option>
-                                    <option value="Moyen">Medium</option>
-                                    <option value="Large">Large</option>
+                                <select id="size-filter" name="size" class="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all appearance-none">
+                                    <option value="" {% if not current_filters.size %}selected{% endif %}>All sizes</option>
+                                    <option value="Petit" {% if current_filters.size == 'Petit' %}selected{% endif %}>Small</option>
+                                    <option value="Moyen" {% if current_filters.size == 'Moyen' %}selected{% endif %}>Medium</option>
+                                    <option value="Large" {% if current_filters.size == 'Large' %}selected{% endif %}>Large</option>
                                 </select>
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <div class="filter-icon text-slate-400">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M20 20v-5h-5"></path>
-                                            <path d="M4 4v5h5"></path>
-                                            <path d="M4 9l6 6"></path>
-                                            <path d="M14 14l6-6"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                    <i class="fas fa-chevron-down text-slate-400"></i>
-                                </div>
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"> <div class="filter-icon text-slate-400"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20v-5h-5"></path><path d="M4 4v5h5"></path><path d="M4 9l6 6"></path><path d="M14 14l6-6"></path></svg> </div> </div>
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"> <i class="fas fa-chevron-down text-slate-400"></i> </div>
                             </div>
                         </div>
                         
                         <div class="relative">
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Category</label>
+                            <label for="category-filter" class="block text-sm font-medium text-slate-700 mb-1">Category</label>
                             <div class="relative">
-                                <select id="category-filter" class="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all appearance-none">
-                                    <option value="">All categories</option>
-                                    <option value="Transport">Transport</option>
-                                    <option value="Combat">Combat</option>
-                                    <option value="Exploration">Exploration</option>
+                                <select id="category-filter" name="category" class="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all appearance-none">
+                                    <option value="" {% if not current_filters.category %}selected{% endif %}>All categories</option>
+                                    <option value="Transport" {% if current_filters.category == 'Transport' %}selected{% endif %}>Transport</option>
+                                    <option value="Combat" {% if current_filters.category == 'Combat' %}selected{% endif %}>Combat</option>
+                                    <option value="Exploration" {% if current_filters.category == 'Exploration' %}selected{% endif %}>Exploration</option>
                                 </select>
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <div class="filter-icon text-slate-400">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M9.5 7L4.5 12L9.5 17"></path>
-                                            <path d="M4.5 12L14.5 12"></path>
-                                            <path d="M19.5 7V17"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                    <i class="fas fa-chevron-down text-slate-400"></i>
-                                </div>
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"> <div class="filter-icon text-slate-400"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 7L4.5 12L9.5 17"></path><path d="M4.5 12L14.5 12"></path><path d="M19.5 7V17"></path></svg> </div> </div>
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"> <i class="fas fa-chevron-down text-slate-400"></i> </div>
                             </div>
                         </div>
                         
                         <div class="relative">
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Crew</label>
+                            <label for="crew-filter" class="block text-sm font-medium text-slate-700 mb-1">Crew</label>
                             <div class="relative">
-                                <select id="crew-filter" class="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all appearance-none">
-                                    <option value="">All</option>
-                                    <option value="1">1 person</option>
-                                    <option value="2">2 people</option>
-                                    <option value="3">3+ people</option>
+                                <select id="crew-filter" name="crew" class="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all appearance-none">
+                                    <option value="" {% if not current_filters.crew %}selected{% endif %}>All</option>
+                                    <option value="1" {% if current_filters.crew == '1' %}selected{% endif %}>1 person</option>
+                                    <option value="2" {% if current_filters.crew == '2' %}selected{% endif %}>2 people</option>
+                                    <option value="3" {% if current_filters.crew == '3' %}selected{% endif %}>3+ people</option>
                                 </select>
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <div class="filter-icon text-slate-400">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <circle cx="12" cy="7" r="4"></circle>
-                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                    <i class="fas fa-chevron-down text-slate-400"></i>
-                                </div>
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"> <div class="filter-icon text-slate-400"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"></circle><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path></svg> </div> </div>
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"> <i class="fas fa-chevron-down text-slate-400"></i> </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="mt-4 flex justify-end">
-                        <button id="search-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors flex items-center">
+
+                    <div class="mt-4 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+                         <div class="flex items-center">
+                            <label for="sort-select" class="text-sm text-slate-600 mr-2">Sort by:</label>
+                            <select id="sort-select" name="sort" class="border border-slate-300 rounded-md py-1 px-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+                                <option value="price-asc" {% if current_sort == 'price-asc' %}selected{% endif %}>Price: Ascending</option>
+                                <option value="price-desc" {% if current_sort == 'price-desc' %}selected{% endif %}>Price: Descending</option>
+                                <option value="name-asc" {% if current_sort == 'name-asc' %}selected{% endif %}>Name: A-Z</option>
+                                <option value="name-desc" {% if current_sort == 'name-desc' %}selected{% endif %}>Name: Z-A</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors flex items-center justify-center sm:w-auto w-full">
                             <i class="fas fa-search mr-2"></i> Search
                         </button>
                     </div>
-                </div>
+                </form> 
             </div>
             
-            <div class="mb-6">
+            <div class="mb-6 mt-10"> 
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-xl font-semibold text-slate-800">Results (<span id="results-count">0</span>)</h3>
-                    <div class="flex items-center">
-                        <span class="text-sm text-slate-600 mr-2">Sort by:</span>
-                        <select id="sort-select" class="border border-slate-300 rounded-md py-1 px-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
-                            <option value="price-asc">Price: Ascending</option>
-                            <option value="price-desc">Price: Descending</option>
-                            <option value="name-asc">Name: A-Z</option>
-                            <option value="name-desc">Name: Z-A</option>
-                        </select>
-                    </div>
+                    <h3 class="text-xl font-semibold text-slate-800">Results (<span id="results-count">{{ page_obj.paginator.count }}</span>)</h3>
                 </div>
                 
                 <div id="ships-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    </div>
+                    {% for ship in page_obj %}
+                        <a href="{% url 'ship_detail' ship_id=ship.id %}" 
+                           class="ship-card-link block bg-white rounded-xl overflow-hidden shadow-md 
+                                  hover:shadow-xl hover:-translate-y-1 
+                                  transition-all duration-300 ease-in-out group">
+                            <div class="flex flex-col h-full"> 
+                                <div class="relative aspect-w-16 aspect-h-9">
+                                    <img src="{{ ship.image|default:'https://via.placeholder.com/400x225.png/e2e8f0/94a3b8?text=No+Image' }}" alt="{{ ship.name }}" class="w-full h-48 object-cover">
+                                    <div class="absolute top-3 left-3">
+                                        <span class="bg-slate-900/80 text-white text-xs px-2 py-1 rounded">{{ ship.category|default:'N/A' }}</span>
+                                    </div>
+                                </div>
+                                <div class="p-4 flex flex-col flex-grow">
+                                    <h4 class="text-lg font-bold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors duration-200">{{ ship.name|default:'Unnamed Ship' }}</h4> 
+                                    <p class="text-sm text-slate-600 mb-3 flex-grow">{{ ship.description|default:'No description.' }}</p>
+                                    <div class="flex flex-wrap gap-2 mb-3">
+                                        <span class="bg-slate-100 text-slate-700 text-xs px-2 py-1 rounded-full flex items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 text-slate-500 h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M20 20v-5h-5"></path> <path d="M4 4v5h5"></path> <path d="M4 9l6 6"></path> <path d="M14 14l6-6"></path> </svg>
+                                            Size: {{ ship.size|default:'N/A' }}
+                                        </span>
+                                        <span class="bg-slate-100 text-slate-700 text-xs px-2 py-1 rounded-full flex items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 text-slate-500 h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <circle cx="12" cy="7" r="4"></circle> <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path> </svg>
+                                             Max Crew: {{ ship.crew|default:'N/A' }}
+                                        </span>
+                                    </div>
+                                    <div class="pt-2 border-t border-slate-100 mt-auto">
+                                        <div class="text-xl font-bold text-blue-600 text-right">{{ ship.price|default:'--' }}€ <span class="text-sm font-normal text-slate-500">/ day</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    {% empty %}
+                         <div class="col-span-full text-center py-10">
+                            <div class="text-5xl mb-4">🤷</div>
+                            <h3 class="text-xl font-medium text-slate-800 mb-2">No ships found</h3>
+                            <p class="text-slate-600">Try adjusting your search filters</p>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
             
             <div class="flex justify-center mt-8">
                 <nav id="pagination" class="flex items-center space-x-1">
-                    </nav>
-            </div>
-        </div>
-    </body>
+                    {% if page_obj.has_previous %}
+                        <a href="?{% if query_params %}{{ query_params|safe }}&{% endif %}page={{ page_obj.previous_page_number }}" class="pagination-prev px-3 py-2 rounded-md bg-white border border-slate-300 text-slate-500 hover:bg-slate-50">
+                            <span class="sr-only">Previous</span><i class="fas fa-chevron-left text-sm"></i>
+                        </a>
+                    {% else %}
+                        <span class="pagination-prev px-3 py-2 rounded-md bg-white border border-slate-300 text-slate-400 opacity-50 pointer-events-none">
+                            <span class="sr-only">Previous</span><i class="fas fa-chevron-left text-sm"></i>
+                        </span>
+                    {% endif %}
 
-    <footer class="bg-slate-900 text-white py-6 mt-12">
-        {% include '_footer.html' %}
-    </footer>
+                    {% for i in page_obj.paginator.page_range %}
+                        {% if page_obj.number == i %}
+                            <span class="pagination-page px-3 py-2 rounded-md bg-blue-600 text-white font-medium z-10">{{ i }}</span>
+                        {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
+                             <a href="?{% if query_params %}{{ query_params|safe }}&{% endif %}page={{ i }}" class="pagination-page px-3 py-2 rounded-md bg-white border border-slate-300 text-slate-700 hover:bg-slate-50">{{ i }}</a>
+                        {% elif i == 1 or i == page_obj.paginator.num_pages %}
+                             {% if i == 1 and page_obj.number > 4 %}<span class="px-1 py-2 text-slate-500">...</span>{% endif %}
+                             <a href="?{% if query_params %}{{ query_params|safe }}&{% endif %}page={{ i }}" class="pagination-page px-3 py-2 rounded-md bg-white border border-slate-300 text-slate-700 hover:bg-slate-50">{{ i }}</a>
+                             {% if i == page_obj.paginator.num_pages and page_obj.number < page_obj.paginator.num_pages|add:'-3' %}<span class="px-1 py-2 text-slate-500">...</span>{% endif %}
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                         <a href="?{% if query_params %}{{ query_params|safe }}&{% endif %}page={{ page_obj.next_page_number }}" class="pagination-next px-3 py-2 rounded-md bg-white border border-slate-300 text-slate-500 hover:bg-slate-50">
+                            <span class="sr-only">Next</span><i class="fas fa-chevron-right text-sm"></i>
+                        </a>
+                    {% else %}
+                        <span class="pagination-next px-3 py-2 rounded-md bg-white border border-slate-300 text-slate-400 opacity-50 pointer-events-none">
+                             <span class="sr-only">Next</span><i class="fas fa-chevron-right text-sm"></i>
+                        </span>
+                    {% endif %}
+                </nav>
+            </div>
+        </main>
+
+        <footer class="bg-slate-900 text-white py-6 mt-auto">
+            {% include '_footer.html' %}
+        </footer>
+    </body>
 </html>
