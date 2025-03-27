@@ -5,3 +5,4 @@ environ
 whitenoise
 psycopg2-binary
 djangorestframework
+setuptools
