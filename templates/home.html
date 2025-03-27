@@ -20,7 +20,6 @@
                 <form method="GET" action="{% url 'app' %}" class="bg-white rounded-lg shadow-md p-4 md:p-6">
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                         
-                        {# Model Filter #}
                         <div class="relative">
                             <label for="model-search" class="block text-sm font-medium text-slate-700 mb-1">Model</label>
                             <div class="relative">
@@ -29,7 +28,6 @@
                             </div>
                         </div>
                         
-                        {# Size Filter #}
                         <div class="relative">
                             <label for="size-filter" class="block text-sm font-medium text-slate-700 mb-1">Size</label>
                             <div class="relative">
@@ -44,7 +42,6 @@
                             </div>
                         </div>
                         
-                        {# Category Filter #}
                         <div class="relative">
                             <label for="category-filter" class="block text-sm font-medium text-slate-700 mb-1">Category</label>
                             <div class="relative">
@@ -59,7 +56,6 @@
                             </div>
                         </div>
                         
-                        {# Crew Filter #}
                         <div class="relative">
                             <label for="crew-filter" class="block text-sm font-medium text-slate-700 mb-1">Crew</label>
                             <div class="relative">
@@ -99,12 +95,10 @@
                 
                 <div id="ships-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {% for ship in page_obj %}
-                        {# Wrap the entire card content in a link #}
                         <a href="{% url 'ship_detail' ship_id=ship.id %}" 
                            class="ship-card-link block bg-white rounded-xl overflow-hidden shadow-md 
                                   hover:shadow-xl hover:-translate-y-1 
-                                  transition-all duration-300 ease-in-out group"> 
-                           {# UPDATED HOVER AND TRANSITION CLASSES HERE #}
+                                  transition-all duration-300 ease-in-out group">
                             <div class="flex flex-col h-full"> 
                                 <div class="relative aspect-w-16 aspect-h-9">
                                     <img src="{{ ship.image|default:'https://via.placeholder.com/400x225.png/e2e8f0/94a3b8?text=No+Image' }}" alt="{{ ship.name }}" class="w-full h-48 object-cover">
@@ -141,7 +135,6 @@
                 </div>
             </div>
             
-            {# Pagination Controls (Keep as is from previous step) #}
             <div class="flex justify-center mt-8">
                 <nav id="pagination" class="flex items-center space-x-1">
                     {% if page_obj.has_previous %}

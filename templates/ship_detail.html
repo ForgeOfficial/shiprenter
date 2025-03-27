@@ -38,9 +38,7 @@
                         <div class="mt-auto pt-6 border-t border-slate-100">
                             <form action="{% url 'add_to_cart' ship_id=ship.id %}" method="POST">
                                 {% csrf_token %}
-                                <div class="space-y-4"> {# Added space-y for vertical spacing #}
-                                    
-                                    {# Price per day - Add data attribute here #}
+                                <div class="space-y-4">
                                     <div 
                                         id="price-per-day-container" 
                                         class="text-xl font-bold text-slate-700"
@@ -49,7 +47,6 @@
                                         {{ ship.price|default:'--' }}€ <span class="text-base font-normal text-slate-500">/ day</span>
                                     </div>
 
-                                    {# Duration Input #}
                                     <div class="flex items-center gap-2">
                                         <label for="duration" class="text-sm font-medium text-slate-700">Duration:</label>
                                         <input 
@@ -65,13 +62,10 @@
                                         <span class="text-sm text-slate-600">days</span>
                                     </div>
 
-                                    {# Total Price Display Area #}
                                     <div class="text-2xl font-bold text-blue-600">
-                                        Total: <span id="total-price">--</span>€ 
-                                        {# Add span for JS to update #}
+                                        Total: <span id="total-price">--</span>€
                                     </div>
                                         
-                                    {# Add to Cart Button #}
                                     <button type="submit" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors whitespace-nowrap">
                                         Add to Cart
                                     </button>
@@ -82,7 +76,10 @@
                 </div>
             </div>
             {% else %}
-                {# ... Ship Not Found message ... #}
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h1 class="text-3xl font-bold text-slate-800 mb-4">Ship Not Found</h1>
+                <p class="text-slate-600">Sorry, we couldn't find the ship you're looking for.</p>
+            </div>
             {% endif %}
         </main>
 
@@ -90,15 +87,13 @@
             {% include '_footer.html' %}
         </footer>
 
-        {# JavaScript for Total Price Calculation #}
-        {% if ship %} {# Only include script if ship exists #}
+        {% if ship %}
         <script>
             document.addEventListener('DOMContentLoaded', () => {
                 const durationInput = document.getElementById('duration');
                 const totalPriceElement = document.getElementById('total-price');
                 const priceContainer = document.getElementById('price-per-day-container');
                 
-                // Ensure all elements exist before proceeding
                 if (!durationInput || !totalPriceElement || !priceContainer) {
                     console.error('Error: Price calculation elements not found.');
                     if(totalPriceElement) totalPriceElement.textContent = 'Error';
@@ -110,23 +105,13 @@
                 function updateTotalPrice() {
                     let duration = parseInt(durationInput.value, 10);
                     
-                    // Validate duration
                     if (isNaN(duration) || duration < 1) {
-                        duration = 1; // Default to 1 if invalid
-                        // Optionally reset the input value visually, but be careful with user experience
-                        // durationInput.value = duration; 
                     }
                     
                     const total = duration * pricePerDay;
-                    
-                    // Update the text content, format as needed (e.g., locale string for thousands separators)
-                    totalPriceElement.textContent = total.toLocaleString('fr-FR'); // Example using French locale format
+                    totalPriceElement.textContent = total.toLocaleString('fr-FR');
                 }
-
-                // Add event listener to update on input change
                 durationInput.addEventListener('input', updateTotalPrice);
-
-                // Initial calculation on page load
                 updateTotalPrice(); 
             });
         </script>
