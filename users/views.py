@@ -9,7 +9,7 @@ from django.shortcuts import render
 
 def register_view(request):
     if request.user.is_authenticated:
-        return redirect('app')
+        return redirect('profile')
 
     if request.method == 'POST':
         data = {
@@ -34,7 +34,7 @@ def register_view(request):
 
 def login_view(request):
     if request.user.is_authenticated:
-        return redirect('app')
+        return redirect('profile')
 
     if request.method == 'POST':
         data = {
@@ -46,7 +46,7 @@ def login_view(request):
             user = authenticate(username=data['username'], password=data['password'])
             if user:
                 login(request, user)
-                response = redirect('app')
+                response = redirect('profile')
                 return response
             return render(request, 'auth.html',
                           {'active': 'login', 'login_form': LoginForm(data), 'register_form': RegisterForm(),
