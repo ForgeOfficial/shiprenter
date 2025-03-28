@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from app.models.Rental import Rental
 from app.models.Ship import Ship
 
 def app(request):
@@ -83,20 +83,25 @@ def faq(request):
 
 def ship_detail_view(request, ship_id):
     ship = get_object_or_404(Ship, id=ship_id)
-    context = {'ship': ship}
+    context = {'ship': ship, 'is_authenticated': request.user.is_authenticated}
     return render(request, 'ship_detail.html', context)
 
-def cart(request):
-    return render(request, 'cart.html')
+def get_profile(request):
+    return render(request, 'profile.html', {
+        'user': request.user,
+        'rentals': Rental.objects.filter(user=request.user)
+    })
 
-def add_to_cart(request, ship_id):
-    # Add the ship to the cart with db
-    ship = next((s for s in [] if s['id'] == ship_id), None)
-    if ship:
-        cart = request.session.get('cart', [])
-        cart.append(ship)
-        request.session['cart'] = cart
-        messages.success(request, f"{ship['name']} has been added to your cart.")
-    else:
-        messages.error(request, "Ship not found.")
-    return redirect('app')
+def add_to_rental(request, ship_id):
+    ship = get_object_or_404(Ship, id=ship_id)
+    duration = int(request.POST.get('duration', '1'))
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    Rental.objects.create(
+        user=request.user,
+        ship=ship,
+        duration=duration
+    )
+
+    return redirect('profile')
