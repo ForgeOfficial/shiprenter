@@ -16,7 +16,7 @@ def app(request):
     if model_query:
         queryset = queryset.filter(name__icontains=model_query.lower())
     if size_query:
-        queryset = queryset.filter(size=size_query)
+        queryset = queryset.filter(size__name=size_query)
     if category_query:
         queryset = queryset.filter(category__name=category_query)
     if crew_query:
